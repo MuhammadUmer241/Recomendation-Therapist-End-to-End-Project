@@ -40,13 +40,36 @@ class vector_db:
           )
       
         print(f"✅ Successfully inserted {len(self.dataframe)} records into ChromaDB.")
+    def search(self, query, n_results=5, filters=None):
+        """
+        Perform a semantic search and filter results using metadata.
 
-import pandas as pd
-path = r"C:\Users\Umer\Desktop\Recomendation-Therapist-End-to-End-Project\data\preprocessed_with_combine_text.csv"
-df = pd.read_csv(path)
+        :param query: The search query as a string.
+        :param n_results: Number of top results to return.
+        :param filters: Dictionary containing metadata filters.
+        :return: List of retrieved documents with metadata.
+        """
+        query_embedding = self.model.encode(query).tolist()
 
-obj = vector_db(dataframe=df)
-obj.make_chromadb()
+        results = self.collection.query(
+            query_embeddings=[query_embedding],
+            n_results=n_results,
+            where=filters  # Apply metadata filters
+        )
+
+        # Extract and format results
+        retrieved_data = []
+        for i in range(len(results["documents"][0])):  # Iterate through returned results
+            retrieved_data.append({
+                "text": results["documents"][0][i],
+                "age": results["metadatas"][0][i]["age"],
+                "participants": results["metadatas"][0][i]["participants"],
+                "fee": results["metadatas"][0][i]["fee"],
+                "availability": results["metadatas"][0][i]["availability"],
+                "score": results["distances"][0][i]  # Distance score (lower is better)
+            })
+
+        return retrieved_data
 
 
 
