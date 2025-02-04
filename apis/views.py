@@ -16,7 +16,7 @@ class TherapistDataView(GenericAPIView):
         therapists = self.get_queryset()
         serializer = self.get_serializer(therapists, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-d
+
     def post(self, request):
         """
         Save new therapist data.
