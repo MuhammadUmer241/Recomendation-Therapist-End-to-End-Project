@@ -1,12 +1,12 @@
 
 
-# Therapist Recommendation System
+# Recomendation-system-End-to-End-Project
 
 An end-to-end therapist recommendation system built with Django APIs, Chroma vector database, zero-shot learning for categorization, and data analytics. This project processes therapist data, generates recommendations, and provides insights through exploratory analysis.
 
 ## Project Structure
 ```
-muhammadumer241-recomendation-therapist-end-to-end-project/
+muhammadumer241-recomendation-system-end-to-end-project/
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT License file
 ├── main.py                # Main script (if applicable)
